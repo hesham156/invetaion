@@ -16,20 +16,20 @@
 
 <style>
 /* ================================================================
-   لوحة الألوان — وردي / روزيه رومانسي
+   لوحة الألوان — إيفوري / ذهبي / بني فخم
    عدّل القيم دي لو حبيت تغيّر الألوان
 ================================================================ */
 :root{
-  --blush:      #f7e7e9;   /* وردي فاتح جداً - خلفيات */
-  --rose:       #d98a9a;   /* وردي أساسي */
-  --rose-deep:  #b76e79;   /* روز جولد غامق */
-  --rose-gold:  #c9a26b;   /* لمسة ذهبية */
-  --cream:      #fdf8f5;   /* كريمي - الخلفية العامة */
-  --ink:        #5a4148;   /* لون النص الأساسي */
-  --ink-soft:   #8a6d74;   /* نص ثانوي */
-  --white:      #ffffff;
-  --shadow:     0 20px 60px rgba(183,110,121,.15);
-  --shadow-sm:  0 8px 24px rgba(183,110,121,.12);
+  --blush:      #ebe2cf;   /* بيج فاتح - خلفيات وعناصر */
+  --rose:       #c2a15c;   /* ذهبي أساسي */
+  --rose-deep:  #5c4a33;   /* بني غامق دافئ - العناوين والأزرار */
+  --rose-gold:  #b8935a;   /* لمسة ذهبية */
+  --cream:      #f6f1e7;   /* إيفوري - الخلفية العامة */
+  --ink:        #43392e;   /* لون النص الأساسي (بني غامق) */
+  --ink-soft:   #8a7a63;   /* نص ثانوي */
+  --white:      #fdfbf6;   /* أوف-وايت دافئ للكروت */
+  --shadow:     0 20px 60px rgba(92,74,51,.15);
+  --shadow-sm:  0 8px 24px rgba(92,74,51,.12);
   --font-head:  'El Messiri', 'Aref Ruqaa', serif;
   --font-deco:  'Aref Ruqaa', 'Amiri', serif;
   --font-body:  'El Messiri', sans-serif;
@@ -39,7 +39,15 @@
 html{scroll-behavior:smooth}
 body{
   font-family:var(--font-body);
-  background:var(--cream);
+  background-color:var(--cream);
+  /* لمسة ذهبية خفيفة متناثرة في الخلفية زي الصورة */
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(184,147,90,.06) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 22%, rgba(184,147,90,.05) 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 55%, rgba(184,147,90,.045) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 78%, rgba(184,147,90,.05) 0 2px, transparent 3px),
+    radial-gradient(circle at 12% 88%, rgba(184,147,90,.045) 0 2px, transparent 3px);
+  background-size:520px 520px;
   color:var(--ink);
   line-height:1.9;
   overflow-x:hidden;
@@ -117,7 +125,7 @@ a{color:inherit;text-decoration:none}
   align-items:center;justify-content:center;
   text-align:center;
   position:relative;
-  background:linear-gradient(160deg,#3a2b3f 0%,#b76e79 100%);
+  background:linear-gradient(160deg,#5c4a33 0%,#b8935a 100%);
   overflow:hidden;
   padding:40px 20px;
 }
@@ -226,6 +234,14 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   margin-top:16px;
   text-shadow:0 2px 14px rgba(0,0,0,.5);
 }
+.hero .date-hijri{
+  font-family:var(--font-deco);
+  letter-spacing:2px;
+  font-size:clamp(.8rem,2.2vw,1rem);
+  color:#f6d9b0;
+  margin-top:6px;
+  text-shadow:0 2px 12px rgba(0,0,0,.5);
+}
 .btn{
   display:inline-block;
   margin-top:38px;
@@ -240,7 +256,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   box-shadow:var(--shadow);
   transition:transform .3s,box-shadow .3s;
 }
-.btn:hover{transform:translateY(-3px);box-shadow:0 25px 55px rgba(183,110,121,.35)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 25px 55px rgba(92,74,51,.32)}
 .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--rose-gold);font-size:1.5rem;animation:bob 1.8s ease-in-out infinite;z-index:2}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
 
@@ -393,35 +409,99 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
    RSVP — تأكيد الحضور
 ================================================================ */
 .rsvp{background:linear-gradient(160deg,var(--blush),var(--cream))}
+/* بطاقة RSVP ببرواز زخرفي */
 .rsvp-form{
-  max-width:560px;margin:0 auto;
-  background:var(--white);
-  border-radius:24px;padding:44px 36px;
-  box-shadow:var(--shadow);border:1px solid #fff;
+  position:relative;max-width:560px;margin:0 auto;
+  background:linear-gradient(160deg,#fffdfb,var(--cream));
+  border:1.5px solid var(--rose-gold);border-radius:8px;
+  padding:clamp(40px,6vw,58px) clamp(24px,5vw,44px);
+  box-shadow:var(--shadow);
 }
-.field{margin-bottom:20px;text-align:right}
-.field label{display:block;color:var(--rose-deep);font-weight:500;margin-bottom:8px;font-size:.95rem}
+.rsvp-form::before{content:"";position:absolute;inset:11px;border:1px solid rgba(201,162,107,.4);border-radius:4px;pointer-events:none}
+.rsvp-form .corner{position:absolute;width:50px;height:50px;color:var(--rose-gold);overflow:visible}
+.rsvp-form .c-tl{top:6px;left:6px}
+.rsvp-form .c-tr{top:6px;right:6px;transform:scaleX(-1)}
+.rsvp-form .c-bl{bottom:6px;left:6px;transform:scaleY(-1)}
+.rsvp-form .c-br{bottom:6px;right:6px;transform:scale(-1,-1)}
+/* رأس البطاقة داخل البرواز */
+.rsvp-inner-head{text-align:center;margin-bottom:26px;position:relative}
+.rsvp-inner-head .rsvp-heart{font-size:1.5rem;color:var(--rose-gold);margin-bottom:8px}
+.rsvp-inner-head .rsvp-title{font-family:var(--font-head);font-weight:700;color:var(--rose-deep);font-size:1.7rem}
+.rsvp-inner-head .rsvp-sub{color:var(--ink-soft);font-size:.95rem;margin-top:4px}
+
+.field{margin-bottom:20px;text-align:right;position:relative}
+.field label{display:block;color:var(--rose-deep);font-weight:600;margin-bottom:8px;font-size:.95rem}
 .field input,.field textarea{
   width:100%;padding:13px 16px;
   border:1.5px solid var(--blush);
-  border-radius:12px;background:var(--cream);
+  border-radius:12px;background:var(--white);
   font-family:var(--font-body);color:var(--ink);
   font-size:1rem;transition:.3s;
 }
-.field input:focus,.field textarea:focus{outline:none;border-color:var(--rose);background:#fff}
-.choice{display:flex;gap:14px;flex-wrap:wrap}
-.choice label{
-  flex:1;min-width:140px;cursor:pointer;
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--rose-gold);background:#fff}
+
+/* خيارات الحضور: نعم / لا / ربما */
+.rsvp-opts{display:flex;gap:10px}
+.rsvp-opts label{
+  flex:1;cursor:pointer;
   border:1.5px solid var(--blush);border-radius:12px;
-  padding:14px;text-align:center;transition:.3s;
-  background:var(--cream);margin:0;
+  padding:13px;text-align:center;transition:.3s;
+  background:var(--white);margin:0;color:var(--ink-soft);font-weight:600;
 }
-.choice input{display:none}
-.choice input:checked + span{color:var(--rose-deep);font-weight:600}
-.choice label:has(input:checked){border-color:var(--rose);background:#fff;box-shadow:var(--shadow-sm)}
+.rsvp-opts input{display:none}
+.rsvp-opts label:has(input:checked){
+  border-color:var(--rose-gold);
+  background:linear-gradient(135deg,#b08d4c,#c9a26b);
+  color:#fff;box-shadow:var(--shadow-sm);
+}
+
+/* عدّاد المرافقين */
+.stepper{display:flex;align-items:center;justify-content:center;gap:22px;direction:ltr;margin-top:6px}
+.stepper button{
+  width:46px;height:46px;border-radius:50%;
+  border:1.5px solid var(--rose-gold);background:transparent;
+  color:var(--rose-deep);font-size:1.5rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.3s;
+}
+.stepper button:hover{background:var(--rose-gold);color:#fff}
+.stepper .count{font-family:var(--font-head);font-weight:700;font-size:1.7rem;color:var(--rose-deep);min-width:40px;text-align:center}
+
 .rsvp-form .btn{width:100%;margin-top:10px}
-.form-msg{text-align:center;color:var(--rose-deep);margin-top:16px;font-weight:500;display:none}
+.form-msg{text-align:center;color:var(--rose-deep);margin-top:16px;font-weight:600;display:none}
 .form-msg.show{display:block}
+
+/* ================================================================
+   احفظ الموعد (كارت التقويم)
+================================================================ */
+.savedate{background:linear-gradient(180deg,var(--cream),var(--blush))}
+.std-eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-head);font-weight:700;color:var(--rose-deep);font-size:1.6rem;margin-bottom:28px}
+.std-eyebrow .h{color:var(--rose-gold);font-size:1.35rem}
+.std-card{
+  position:relative;max-width:330px;margin:0 auto;
+  background:var(--cream);border-radius:20px;
+  box-shadow:var(--shadow);padding:10px 10px 18px;
+  border:1px solid rgba(201,162,107,.3);
+}
+.std-head{
+  background:linear-gradient(135deg,#8a6d3b,#c9a26b);
+  color:#fff;text-align:center;padding:15px;
+  border-radius:14px;
+  font-family:var(--font-deco);letter-spacing:3px;font-size:1.15rem;
+}
+.std-body{padding:22px 16px 6px;text-align:center}
+.std-day{font-family:var(--font-deco);color:var(--ink-soft);font-size:1.15rem}
+.std-num{font-family:var(--font-head);font-weight:700;color:var(--rose-gold);font-size:4.2rem;line-height:1;margin:6px 0}
+.std-time{color:var(--ink-soft);font-size:1rem}
+.std-hijri{color:var(--rose-gold);font-family:var(--font-deco);font-size:.9rem;margin-top:6px}
+.std-hr{border:none;border-top:1.5px dashed rgba(201,162,107,.55);margin:18px 6px}
+.std-note{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ink-soft);font-size:.9rem;margin-bottom:16px}
+.std-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.std-btn{
+  padding:10px 22px;border-radius:30px;
+  border:1.5px solid var(--rose-gold);background:transparent;
+  color:var(--rose-deep);font-family:var(--font-body);font-size:.9rem;cursor:pointer;transition:.3s;
+}
+.std-btn:hover{background:var(--rose-gold);color:#fff}
 
 /* ================================================================
    TRAVEL — السفر والإقامة
@@ -556,7 +636,8 @@ body.intro .sparkles{opacity:0}
     <p class="greet"> اضف لــقصتنا خطوة</p>
     <h1 class="names">ليلك <span class="amp">&amp;</span> هارون</h1>
     <div class="flourish">✦</div>
-    <p class="date">٢٢ نوفمبر ٢٠٢٦</p>
+    <p class="date">الخميس ١٣ أغسطس ٢٠٢٦</p>
+    <p class="date-hijri">٣٠ صفر ١٤٤٨ هـ</p>
     <!-- <a href="#rsvp" class="btn">أكّد حضورك</a> -->
   </div>
 
@@ -611,6 +692,28 @@ body.intro .sparkles{opacity:0}
 </section>
 <!-- مكتبة FlipDown -->
 <script src="https://pbutcher.uk/flipdown/js/flipdown/flipdown.js"></script>
+
+<!-- ============ SAVE THE DATE ============ -->
+<section class="section savedate">
+  <div class="container">
+    <div class="std-eyebrow reveal">احفظ الموعد <span class="h">💜</span></div>
+    <div class="std-card reveal">
+      <div class="std-head">أغسطس ٢٠٢٦</div>
+      <div class="std-body">
+        <div class="std-day">الخميس</div>
+        <div class="std-num">١٣</div>
+        <div class="std-time">الساعة التاسعة مساءً</div>
+        <div class="std-hijri">٣٠ صفر ١٤٤٨ هـ</div>
+        <hr class="std-hr">
+        <p class="std-note">📲 أضف الموعد إلى تقويم هاتفك بضغطة</p>
+        <div class="std-actions">
+          <button class="std-btn" data-std-cal="google">تقويم جوجل</button>
+          <button class="std-btn" data-std-cal="ics">تقويم آيفون</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ LOVE STORY ============ -->
 <section class="section story">
@@ -686,7 +789,7 @@ body.intro .sparkles{opacity:0}
     <div class="event-grid">
       <div class="event-card reveal">
         <h3>قاعة الاحتفال</h3>
-        <div class="big-time">٤:٠٠ مساءً</div>
+        <div class="big-time">٩:٠٠ مساءً</div>
         <p>قاعة النرجس — فندق الأندلس</p>
         <p>شارع النيل، المعادي</p>
         <p>القاهرة، مصر</p>
@@ -722,29 +825,50 @@ body.intro .sparkles{opacity:0}
   <div class="container">
     <p class="eyebrow">كونوا معانا</p>
     <h2 class="title">تأكيد الحضور</h2>
-    <p class="subtitle">برجاء تأكيد حضوركم قبل ٢٢ أكتوبر ٢٠٢٦</p>
+    <p class="subtitle">برجاء تأكيد حضوركم قبل ٣٠ يوليو ٢٠٢٦</p>
     <form class="rsvp-form reveal" id="rsvpForm">
-      <div class="field">
-        <label for="name">الاسم بالكامل *</label>
-        <input type="text" id="name" name="name" required placeholder="اكتب اسمك هنا" />
+      <svg class="corner c-tl"><use href="#corner-orn"/></svg>
+      <svg class="corner c-tr"><use href="#corner-orn"/></svg>
+      <svg class="corner c-bl"><use href="#corner-orn"/></svg>
+      <svg class="corner c-br"><use href="#corner-orn"/></svg>
+
+      <div class="rsvp-inner-head">
+        <div class="rsvp-heart">💜</div>
+        <h3 class="rsvp-title">تأكيد الحضور</h3>
+        <p class="rsvp-sub">يسعدنا تأكيد حضوركم</p>
       </div>
+
       <div class="field">
-        <label for="email">البريد الإلكتروني</label>
-        <input type="email" id="email" name="email" placeholder="example@email.com" />
+        <label for="name">الاسم الكريم *</label>
+        <input type="text" id="name" name="name" required placeholder="اسمك" />
       </div>
+
       <div class="field">
-        <label>هتقدر تحضر؟ *</label>
-        <div class="choice">
-          <label><input type="radio" name="attend" value="yes" required><span>😊 هحضر بكل سعادة</span></label>
-          <label><input type="radio" name="attend" value="no"><span>😢 معتذر للأسف</span></label>
+        <label>هل ستحضر؟ *</label>
+        <div class="rsvp-opts">
+          <label><input type="radio" name="attend" value="yes" required><span>نعم</span></label>
+          <label><input type="radio" name="attend" value="no"><span>لا</span></label>
+          <label><input type="radio" name="attend" value="maybe"><span>ربما</span></label>
         </div>
       </div>
-      <div class="field">
-        <label for="msg">رسالة للعروسين</label>
-        <textarea id="msg" name="msg" rows="3" placeholder="اكتب كلمة حلوة…"></textarea>
+
+      <div class="field" style="text-align:center">
+        <label>عدد المرافقين (عدا حضورك – ٠ إن كنت وحدك)</label>
+        <div class="stepper">
+          <button type="button" id="guestPlus" aria-label="زيادة">+</button>
+          <span class="count" id="guestCount">٠</span>
+          <button type="button" id="guestMinus" aria-label="نقصان">−</button>
+          <input type="hidden" name="guests" id="guestsInput" value="0" />
+        </div>
       </div>
+
+      <div class="field">
+        <label for="msg">كلمة للعروسين 💌</label>
+        <textarea id="msg" name="msg" rows="3" placeholder="اكتب تهنئتك للعروسين…"></textarea>
+      </div>
+
       <button type="submit" class="btn">إرسال التأكيد</button>
-      <p class="form-msg" id="formMsg">شكراً ليك! وصلنا تأكيدك 💕</p>
+      <p class="form-msg" id="formMsg">شكراً ليكم! وصلنا تأكيدكم 💕</p>
     </form>
   </div>
 </section>
@@ -807,7 +931,7 @@ body.intro .sparkles{opacity:0}
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="f-names">ليلك &amp; هارون</div>
-  <div class="f-date">٢٢ نوفمبر ٢٠٢٦</div>
+  <div class="f-date">الخميس ١٣ أغسطس ٢٠٢٦ · ٣٠ صفر ١٤٤٨ هـ</div>
   <div class="f-made">صُنع بكل <span class="heart">♥</span> ليومنا المميز</div>
   <div class="f-tag">#ليلك_وهارون_٢٠٢٦</div>
 </footer>
@@ -819,7 +943,7 @@ body.intro .sparkles{opacity:0}
 /* ================= عدّاد FlipDown ================= */
 /* عدّل تاريخ الفرح هنا (السنة، الشهر-1، اليوم، الساعة، الدقيقة) */
 (function(){
-  const weddingDate = new Date(2026, 10, 22, 16, 0, 0); // 22 نوفمبر 2026 - 4:00م
+  const weddingDate = new Date(2026, 7, 13, 21, 0, 0); // 13 أغسطس 2026 - 9:00م
   const ts = Math.floor(weddingDate.getTime() / 1000);  // FlipDown بيحتاج ثواني
   function initFlip(){
     if(typeof FlipDown === 'undefined'){ return setTimeout(initFlip, 200); }
@@ -848,6 +972,7 @@ document.getElementById('rsvpForm').addEventListener('submit', function(e){
   /* ملاحظة: ده عرض تجريبي — لربطه بإيميل/قاعدة بيانات استخدم خدمة زي Formspree أو Google Forms */
   document.getElementById('formMsg').classList.add('show');
   this.reset();
+  this.dispatchEvent(new Event('reset-guests'));  // يرجّع عدّاد المرافقين لصفر
   setTimeout(()=>document.getElementById('formMsg').classList.remove('show'), 6000);
 });
 
@@ -856,9 +981,9 @@ document.getElementById('rsvpForm').addEventListener('submit', function(e){
   /* ====== بيانات الحدث — عدّلها من هنا ====== */
   const ev = {
     title:    'زفاف ليلك 💍 هارون',
-    start:    '2026-11-22T16:00:00',   // بداية الحفل (توقيت القاهرة)
-    end:      '2026-11-22T21:00:00',   // نهاية الحفل (توقيت القاهرة)
-    tzOffset: 2,                        // فرق توقيت القاهرة عن UTC (+2 في نوفمبر)
+    start:    '2026-08-13T21:00:00',   // بداية الحفل (توقيت القاهرة)
+    end:      '2026-08-14T01:00:00',   // نهاية الحفل (توقيت القاهرة)
+    tzOffset: 3,                        // فرق توقيت القاهرة عن UTC (+3 صيفاً في أغسطس)
     location: 'قاعة النرجس — فندق الأندلس، شارع النيل، المعادي، القاهرة، مصر',
     details:  'يشرّفنا حضوركم في حفل زفافنا. بحبنا، ليلك و هارون 💕'
   };
@@ -937,6 +1062,32 @@ document.getElementById('rsvpForm').addEventListener('submit', function(e){
     wrap.classList.remove('open');
     btn.setAttribute('aria-expanded','false');
   });
+
+  /* أزرار كارت "احفظ الموعد" تستخدم نفس المنطق */
+  document.querySelectorAll('[data-std-cal]').forEach(function(b){
+    b.addEventListener('click', function(){
+      const t = b.dataset.stdCal;
+      if(t === 'google')       window.open(googleUrl,  '_blank', 'noopener');
+      else if(t === 'outlook') window.open(outlookUrl, '_blank', 'noopener');
+      else                     downloadICS();   // آيفون/ics
+    });
+  });
+})();
+
+/* ================= عدّاد المرافقين (RSVP) ================= */
+(function(){
+  const plus  = document.getElementById('guestPlus');
+  const minus = document.getElementById('guestMinus');
+  const disp  = document.getElementById('guestCount');
+  const input = document.getElementById('guestsInput');
+  if(!plus) return;
+  const arNum = n => n.toLocaleString('ar-EG');
+  let n = 0;
+  function render(){ disp.textContent = arNum(n); input.value = n; }
+  plus.addEventListener('click',  ()=>{ if(n < 20) n++; render(); });
+  minus.addEventListener('click', ()=>{ if(n > 0)  n--; render(); });
+  /* إعادة الضبط بعد إرسال الفورم */
+  document.getElementById('rsvpForm').addEventListener('reset-guests', ()=>{ n = 0; render(); });
 })();
 
 /* ================= ظهور العناصر عند التمرير ================= */
