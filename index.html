@@ -369,6 +369,26 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
 .mini-btn.ghost:hover{background:var(--rose);color:#fff}
 @media(max-width:720px){.event-grid{grid-template-columns:1fr}}
 
+/* قائمة "أضف للتقويم" المنسدلة */
+.cal-wrap{position:relative;display:inline-block}
+.cal-menu{
+  position:absolute;top:calc(100% + 8px);right:0;z-index:45;
+  background:#fff;border:1px solid var(--blush);border-radius:14px;
+  box-shadow:var(--shadow);padding:8px;min-width:200px;
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .25s,transform .25s,visibility .25s;
+  text-align:right;
+}
+.cal-wrap.open .cal-menu{opacity:1;visibility:visible;transform:none}
+.cal-menu a{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 12px;border-radius:9px;
+  color:var(--ink);font-size:.94rem;transition:background .2s,color .2s;
+}
+.cal-menu a:hover{background:var(--blush);color:var(--rose-deep)}
+.cal-menu a .ci{font-size:1.1rem;width:22px;text-align:center}
+.cal-menu .cal-sep{height:1px;background:var(--blush);margin:5px 8px}
+
 /* ================================================================
    RSVP — تأكيد الحضور
 ================================================================ */
@@ -672,7 +692,16 @@ body.intro .sparkles{opacity:0}
         <p>القاهرة، مصر</p>
         <div class="event-actions">
           <a class="mini-btn" href="https://maps.google.com" target="_blank" rel="noopener">افتح في الخريطة</a>
-          <a class="mini-btn ghost" href="#" id="calBtn">أضف للتقويم</a>
+          <div class="cal-wrap">
+            <button class="mini-btn ghost" id="calBtn" aria-haspopup="true" aria-expanded="false">🗓️ أضف للتقويم</button>
+            <div class="cal-menu" id="calMenu" role="menu">
+              <a href="#" data-cal="google" role="menuitem"><span class="ci">📅</span> Google Calendar</a>
+              <a href="#" data-cal="outlook" role="menuitem"><span class="ci">📆</span> Outlook</a>
+              <div class="cal-sep"></div>
+              <a href="#" data-cal="apple" role="menuitem"><span class="ci">🍎</span> Apple Calendar</a>
+              <a href="#" data-cal="ics" role="menuitem"><span class="ci">⬇️</span> تنزيل ملف (.ics)</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="event-card reveal">
@@ -822,11 +851,93 @@ document.getElementById('rsvpForm').addEventListener('submit', function(e){
   setTimeout(()=>document.getElementById('formMsg').classList.remove('show'), 6000);
 });
 
-/* ================= أزرار المكان ================= */
-document.getElementById('calBtn').addEventListener('click', function(e){
-  e.preventDefault();
-  alert('هيتم إضافة رابط تقويم Google/Apple هنا 🗓️');
-});
+/* ================= إضافة للتقويم ================= */
+(function(){
+  /* ====== بيانات الحدث — عدّلها من هنا ====== */
+  const ev = {
+    title:    'زفاف ليلك 💍 هارون',
+    start:    '2026-11-22T16:00:00',   // بداية الحفل (توقيت القاهرة)
+    end:      '2026-11-22T21:00:00',   // نهاية الحفل (توقيت القاهرة)
+    tzOffset: 2,                        // فرق توقيت القاهرة عن UTC (+2 في نوفمبر)
+    location: 'قاعة النرجس — فندق الأندلس، شارع النيل، المعادي، القاهرة، مصر',
+    details:  'يشرّفنا حضوركم في حفل زفافنا. بحبنا، ليلك و هارون 💕'
+  };
+
+  /* تحويل توقيت القاهرة المحلي إلى UTC بصيغة iCalendar */
+  function toCalUTC(localStr, offH){
+    const d = new Date(localStr + 'Z');   // نقرأه مبدئياً كـ UTC
+    d.setHours(d.getHours() - offH);      // نطرح الفرق للحصول على UTC الحقيقي
+    return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  }
+  /* تهريب الرموز الخاصة في نصوص ملف ics */
+  function esc(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+
+  const startU = toCalUTC(ev.start, ev.tzOffset);
+  const endU   = toCalUTC(ev.end,   ev.tzOffset);
+  const stampU = new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const enc = encodeURIComponent;
+
+  /* روابط Google و Outlook */
+  const googleUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text='     + enc(ev.title)
+    + '&dates='    + startU + '/' + endU
+    + '&details='  + enc(ev.details)
+    + '&location=' + enc(ev.location);
+
+  const outlookUrl = 'https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent'
+    + '&subject='  + enc(ev.title)
+    + '&startdt='  + ev.start
+    + '&enddt='    + ev.end
+    + '&body='     + enc(ev.details)
+    + '&location=' + enc(ev.location);
+
+  /* توليد وتنزيل ملف ics (لـ Apple/أي تطبيق تقويم) */
+  function downloadICS(){
+    const ics = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Invite//AR//','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:' + startU + '-wedding@invite',
+      'DTSTAMP:' + stampU,
+      'DTSTART:' + startU,
+      'DTEND:'   + endU,
+      'SUMMARY:'     + esc(ev.title),
+      'DESCRIPTION:' + esc(ev.details),
+      'LOCATION:'    + esc(ev.location),
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    const url = URL.createObjectURL(new Blob([ics], {type:'text/calendar;charset=utf-8'}));
+    const a = document.createElement('a');
+    a.href = url; a.download = 'wedding-invitation.ics';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+  }
+
+  const wrap = document.querySelector('.cal-wrap');
+  const btn  = document.getElementById('calBtn');
+  const menu = document.getElementById('calMenu');
+
+  /* فتح/غلق القائمة */
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    wrap.classList.toggle('open');
+    btn.setAttribute('aria-expanded', wrap.classList.contains('open'));
+  });
+  /* غلق عند الضغط برّه القائمة */
+  document.addEventListener('click', function(e){
+    if(!wrap.contains(e.target)){ wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+  });
+  /* تنفيذ الاختيار */
+  menu.addEventListener('click', function(e){
+    const a = e.target.closest('a'); if(!a) return;
+    e.preventDefault();
+    const t = a.dataset.cal;
+    if(t === 'google')      window.open(googleUrl,  '_blank', 'noopener');
+    else if(t === 'outlook') window.open(outlookUrl, '_blank', 'noopener');
+    else                     downloadICS();   // apple + ics
+    wrap.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  });
+})();
 
 /* ================= ظهور العناصر عند التمرير ================= */
 const io = new IntersectionObserver((entries)=>{
