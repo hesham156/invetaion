@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>دعوة زفاف — ليلك & هارون</title>
+<meta name="description" content="دعوة زفاف رقمية — يشرفنا حضوركم" />
+
+<!-- ============ الخطوط ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@400;500;600;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- ملف ستايل عدّاد FlipDown -->
+<link href="https://pbutcher.uk/flipdown/css/flipdown/flipdown.css" rel="stylesheet" />
+
+<style>
+/* ================================================================
+   لوحة الألوان — وردي / روزيه رومانسي
+   عدّل القيم دي لو حبيت تغيّر الألوان
+================================================================ */
+:root{
+  --blush:      #f7e7e9;   /* وردي فاتح جداً - خلفيات */
+  --rose:       #d98a9a;   /* وردي أساسي */
+  --rose-deep:  #b76e79;   /* روز جولد غامق */
+  --rose-gold:  #c9a26b;   /* لمسة ذهبية */
+  --cream:      #fdf8f5;   /* كريمي - الخلفية العامة */
+  --ink:        #5a4148;   /* لون النص الأساسي */
+  --ink-soft:   #8a6d74;   /* نص ثانوي */
+  --white:      #ffffff;
+  --shadow:     0 20px 60px rgba(183,110,121,.15);
+  --shadow-sm:  0 8px 24px rgba(183,110,121,.12);
+  --font-head:  'El Messiri', 'Aref Ruqaa', serif;
+  --font-deco:  'Aref Ruqaa', 'Amiri', serif;
+  --font-body:  'El Messiri', sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.9;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ============ عناصر مساعدة ============ */
+.container{width:min(1080px,92%);margin-inline:auto}
+.section{padding:clamp(60px,10vw,120px) 0;position:relative}
+.eyebrow{
+  font-family:var(--font-deco);
+  color:var(--rose-gold);
+  letter-spacing:4px;
+  font-size:.85rem;
+  text-align:center;
+  margin-bottom:12px;
+}
+.title{
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:clamp(1.8rem,4.5vw,3rem);
+  text-align:center;
+  color:var(--rose-deep);
+  margin-bottom:10px;
+}
+.subtitle{
+  text-align:center;
+  color:var(--ink-soft);
+  max-width:560px;
+  margin:0 auto 50px;
+  font-size:1.05rem;
+}
+.divider{
+  width:70px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--rose-gold),transparent);
+  margin:18px auto 30px;
+  position:relative;
+}
+.divider::after{
+  content:"❦";
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--cream);
+  color:var(--rose-gold);
+  padding:0 12px;
+  font-size:1.1rem;
+}
+
+/* ظهور عند التمرير */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ شريط اللغة ============ */
+.lang-bar{
+  position:fixed;top:18px;left:18px;z-index:60;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(8px);
+  border:1px solid var(--blush);
+  border-radius:30px;
+  padding:6px 14px;
+  font-size:.8rem;
+  color:var(--rose-deep);
+  box-shadow:var(--shadow-sm);
+  cursor:default;
+  letter-spacing:1px;
+}
+
+/* ================================================================
+   HERO — الغلاف
+================================================================ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  position:relative;
+  background:linear-gradient(160deg,#3a2b3f 0%,#b76e79 100%);
+  overflow:hidden;
+  padding:40px 20px;
+}
+/* فيديو الخلفية */
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+}
+/* طبقة تعتيم خفيفة عشان النص يبان */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(40,25,45,.25) 0%,rgba(40,25,45,.05) 40%,rgba(40,25,45,.45) 100%);
+}
+/* زرار الصوت */
+.sound-btn{
+  position:absolute;bottom:26px;left:26px;z-index:5;
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(6px);
+  border:none;cursor:pointer;
+  font-size:1.3rem;color:var(--rose-deep);
+  box-shadow:var(--shadow-sm);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .3s;
+}
+.sound-btn:hover{transform:scale(1.08)}
+
+/* ============ فاصل السحاب أسفل الغلاف ============ */
+.hero-wave{position:absolute;left:0;right:0;bottom:-1px;z-index:3;line-height:0;pointer-events:none}
+.hero-wave svg{width:100%;height:clamp(70px,11vw,130px);display:block}
+.hero-wave .cloud-back{fill:rgba(255,255,255,.55)}
+.hero-wave .cloud-front{fill:#fff}
+/* نخفي الفاصل أثناء وضع البوابة */
+body.intro .hero-wave{opacity:0;visibility:hidden}
+
+/* ============ بوابة الدخول (انضم لنا) ============ */
+/* أثناء وضع intro: نخفي كل الموقع ونقفل التمرير */
+body.intro{overflow:hidden;height:100vh}
+body.intro section,body.intro .footer,body.intro .lang-bar{display:none}
+body.intro .hero-inner,body.intro .scroll-hint,body.intro .sound-btn{opacity:0;visibility:hidden;pointer-events:none}
+
+/* شاشة الزرار فوق الفيديو الثابت */
+.gate{
+  position:absolute;inset:0;z-index:4;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;gap:18px;
+  transition:opacity .7s ease;
+}
+.gate .gate-greet{
+  font-family:var(--font-deco);
+  letter-spacing:5px;color:#f6d9b0;
+  font-size:clamp(.8rem,2vw,1rem);
+  text-shadow:0 2px 12px rgba(0,0,0,.5);
+}
+.gate-btn{
+  padding:16px 54px;
+  background:rgba(255,255,255,.92);
+  color:var(--rose-deep);
+  border:none;border-radius:40px;
+  font-family:var(--font-head);font-weight:700;
+  font-size:1.25rem;letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+  transition:transform .3s,box-shadow .3s;
+  animation:pulse 2.2s ease-in-out infinite;
+}
+.gate-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+@keyframes pulse{0%,100%{box-shadow:0 12px 40px rgba(0,0,0,.35)}50%{box-shadow:0 12px 55px rgba(255,255,255,.55)}}
+/* بعد الدخول: نخفي البوابة، ونظهّر محتوى الغلاف بأنيميشن */
+body:not(.intro) .gate{opacity:0;visibility:hidden;pointer-events:none}
+body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
+@keyframes heroReveal{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+/* بتلات وردة عائمة */
+.petal{position:absolute;top:-40px;font-size:1.4rem;color:var(--rose);opacity:.55;animation:fall linear infinite;pointer-events:none}
+@keyframes fall{
+  0%{transform:translateY(-40px) rotate(0);opacity:0}
+  10%{opacity:.6}
+  100%{transform:translateY(105vh) rotate(360deg);opacity:0}
+}
+.hero-inner{position:relative;z-index:2}
+.hero .greet{
+  font-family:var(--font-deco);
+  letter-spacing:6px;
+  color:#f6d9b0;
+  font-size:clamp(.85rem,2vw,1.05rem);
+  margin-bottom:24px;
+  text-shadow:0 2px 12px rgba(0,0,0,.45);
+}
+.hero .names{
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:clamp(3rem,11vw,7rem);
+  color:#fff;
+  line-height:1.1;
+  margin:10px 0;
+  text-shadow:0 4px 24px rgba(0,0,0,.5);
+}
+.hero .amp{color:#f6d9b0;font-family:var(--font-deco)}
+.hero .flourish{color:#f6d9b0;font-size:1.6rem;margin:14px 0;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hero .date{
+  font-family:var(--font-deco);
+  letter-spacing:4px;
+  font-size:clamp(1rem,3vw,1.4rem);
+  color:#fff;
+  margin-top:16px;
+  text-shadow:0 2px 14px rgba(0,0,0,.5);
+}
+.btn{
+  display:inline-block;
+  margin-top:38px;
+  padding:15px 44px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:var(--white);
+  border:none;border-radius:40px;
+  font-family:var(--font-body);
+  font-size:1rem;font-weight:500;
+  letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  transition:transform .3s,box-shadow .3s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 25px 55px rgba(183,110,121,.35)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--rose-gold);font-size:1.5rem;animation:bob 1.8s ease-in-out infinite;z-index:2}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+/* ================================================================
+   COUNTDOWN — العدّاد
+================================================================ */
+.countdown{background:var(--white)}
+/* غلاف عدّاد FlipDown */
+.count-down{max-width:600px;margin:10px auto 0;padding:10px}
+.count-down .flipdown{margin:0 auto;direction:ltr}
+/* على الموبايل: نخلّيه سطر واحد جمب بعض */
+@media(max-width:560px){
+  .section.countdown .container{width:100%}
+  .count-down{padding:6px 2px}
+  .count-down .flipdown{
+    display:flex;justify-content:center;align-items:flex-start;
+    flex-wrap:nowrap;width:auto;
+  }
+}
+/* للشاشات الصغيرة جداً نصغّره شوية عشان ميخرجش برّه */
+@media(max-width:335px){
+  .count-down .flipdown{transform:scale(.88);transform-origin:center top}
+}
+
+/* ================================================================
+   LOVE STORY — قصة حبنا (خط زمني)
+================================================================ */
+.story{background:linear-gradient(180deg,var(--cream),var(--white))}
+.timeline{position:relative;max-width:760px;margin:0 auto;padding:10px 0}
+.timeline::before{
+  content:"";position:absolute;top:0;bottom:0;right:50%;
+  width:2px;transform:translateX(50%);
+  background:linear-gradient(var(--rose-gold),var(--blush));
+}
+.tl-item{position:relative;width:50%;padding:22px 40px;margin-bottom:10px}
+.tl-item:nth-child(odd){right:0;text-align:left}
+.tl-item:nth-child(even){right:50%;text-align:right}
+.tl-item::after{
+  content:"❤";
+  position:absolute;top:26px;
+  color:var(--rose);
+  background:var(--cream);
+  font-size:1rem;
+  width:34px;height:34px;line-height:34px;text-align:center;
+  border-radius:50%;
+  border:2px solid var(--rose-gold);
+}
+.tl-item:nth-child(odd)::after{right:-17px}
+.tl-item:nth-child(even)::after{left:-17px}
+.tl-year{font-family:var(--font-head);font-weight:700;color:var(--rose-gold);font-size:1.4rem}
+.tl-title{font-family:var(--font-head);color:var(--rose-deep);font-size:1.25rem;margin:4px 0 8px}
+.tl-text{color:var(--ink-soft);font-size:.98rem}
+@media(max-width:640px){
+  .timeline::before{right:18px;transform:none}
+  .tl-item{width:100%;padding:18px 52px 18px 10px;text-align:right !important}
+  .tl-item:nth-child(even){right:0}
+  .tl-item::after{right:1px !important;left:auto !important}
+}
+
+/* ================================================================
+   PROGRAM — برنامج اليوم
+================================================================ */
+.program{background:var(--white)}
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:14px}
+.prog-card{
+  background:linear-gradient(160deg,var(--cream),#fff);
+  border-radius:18px;padding:28px 24px;
+  border:1px solid var(--blush);
+  box-shadow:var(--shadow-sm);
+  transition:transform .3s;
+  text-align:center;
+}
+.prog-card:hover{transform:translateY(-6px)}
+.prog-icon{font-size:1.8rem;margin-bottom:8px}
+.prog-time{font-family:var(--font-head);font-weight:700;color:var(--rose-deep);font-size:1.4rem}
+.prog-name{font-family:var(--font-deco);color:var(--rose-gold);margin:4px 0}
+.prog-desc{color:var(--ink-soft);font-size:.9rem}
+
+/* ================================================================
+   GIFTS — الهدايا
+================================================================ */
+.gifts{background:linear-gradient(180deg,var(--white),var(--cream))}
+.gift-card{
+  max-width:640px;margin:0 auto;
+  background:var(--white);
+  border-radius:24px;padding:44px 34px;
+  box-shadow:var(--shadow);
+  text-align:center;
+  border:1px solid var(--blush);
+}
+.gift-card p{color:var(--ink-soft);margin-bottom:18px}
+.iban-box{margin-top:20px}
+.iban{
+  display:none;margin-top:16px;
+  font-family:'Amiri',serif;letter-spacing:2px;
+  background:var(--blush);color:var(--rose-deep);
+  padding:14px;border-radius:12px;direction:ltr;
+}
+.iban.show{display:block}
+.btn-ghost{
+  background:transparent;color:var(--rose-deep);
+  border:1.5px solid var(--rose);
+  padding:12px 34px;border-radius:40px;
+  font-family:var(--font-body);cursor:pointer;
+  transition:.3s;letter-spacing:1px;
+}
+.btn-ghost:hover{background:var(--rose);color:#fff}
+
+/* ================================================================
+   EVENT DETAILS — تفاصيل المكان
+================================================================ */
+.event{background:var(--white)}
+.event-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:14px}
+.event-card{
+  background:linear-gradient(160deg,var(--cream),#fff);
+  border-radius:20px;padding:34px;
+  box-shadow:var(--shadow-sm);border:1px solid var(--blush);
+}
+.event-card h3{font-family:var(--font-head);color:var(--rose-deep);font-size:1.5rem;margin-bottom:6px}
+.event-card .big-time{font-family:var(--font-deco);color:var(--rose-gold);font-size:1.3rem;margin-bottom:14px}
+.event-card p{color:var(--ink-soft);margin-bottom:6px}
+.event-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.mini-btn{padding:10px 22px;border-radius:30px;background:var(--rose);color:#fff;font-size:.9rem;transition:.3s}
+.mini-btn:hover{background:var(--rose-deep)}
+.mini-btn.ghost{background:transparent;border:1.5px solid var(--rose);color:var(--rose-deep)}
+.mini-btn.ghost:hover{background:var(--rose);color:#fff}
+@media(max-width:720px){.event-grid{grid-template-columns:1fr}}
+
+/* ================================================================
+   RSVP — تأكيد الحضور
+================================================================ */
+.rsvp{background:linear-gradient(160deg,var(--blush),var(--cream))}
+.rsvp-form{
+  max-width:560px;margin:0 auto;
+  background:var(--white);
+  border-radius:24px;padding:44px 36px;
+  box-shadow:var(--shadow);border:1px solid #fff;
+}
+.field{margin-bottom:20px;text-align:right}
+.field label{display:block;color:var(--rose-deep);font-weight:500;margin-bottom:8px;font-size:.95rem}
+.field input,.field textarea{
+  width:100%;padding:13px 16px;
+  border:1.5px solid var(--blush);
+  border-radius:12px;background:var(--cream);
+  font-family:var(--font-body);color:var(--ink);
+  font-size:1rem;transition:.3s;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--rose);background:#fff}
+.choice{display:flex;gap:14px;flex-wrap:wrap}
+.choice label{
+  flex:1;min-width:140px;cursor:pointer;
+  border:1.5px solid var(--blush);border-radius:12px;
+  padding:14px;text-align:center;transition:.3s;
+  background:var(--cream);margin:0;
+}
+.choice input{display:none}
+.choice input:checked + span{color:var(--rose-deep);font-weight:600}
+.choice label:has(input:checked){border-color:var(--rose);background:#fff;box-shadow:var(--shadow-sm)}
+.rsvp-form .btn{width:100%;margin-top:10px}
+.form-msg{text-align:center;color:var(--rose-deep);margin-top:16px;font-weight:500;display:none}
+.form-msg.show{display:block}
+
+/* ================================================================
+   TRAVEL — السفر والإقامة
+================================================================ */
+.travel{background:var(--white)}
+.travel-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:14px}
+.travel-block h3{font-family:var(--font-head);color:var(--rose-deep);font-size:1.4rem;margin-bottom:16px}
+.hotel,.transport{
+  background:linear-gradient(160deg,var(--cream),#fff);
+  border-radius:16px;padding:22px;margin-bottom:16px;
+  border:1px solid var(--blush);box-shadow:var(--shadow-sm);
+}
+.hotel h4,.transport h4{color:var(--rose-deep);font-family:var(--font-head);margin-bottom:4px}
+.badge{display:inline-block;background:var(--blush);color:var(--rose-deep);border-radius:20px;padding:2px 12px;font-size:.78rem;margin-bottom:8px}
+.hotel p,.transport p{color:var(--ink-soft);font-size:.92rem}
+.todo-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.todo-list span{background:var(--blush);color:var(--rose-deep);border-radius:20px;padding:8px 18px;font-size:.9rem}
+@media(max-width:720px){.travel-grid{grid-template-columns:1fr}}
+
+/* ================================================================
+   بطاقة الدعوة (البرواز الزخرفي)
+================================================================ */
+.invite{background:linear-gradient(180deg,var(--cream),var(--blush))}
+.invite-card{
+  position:relative;max-width:640px;margin:0 auto;
+  background:linear-gradient(160deg,#fffdfb,var(--cream));
+  border:1.5px solid var(--rose-gold);
+  border-radius:6px;
+  padding:clamp(46px,8vw,74px) clamp(26px,5vw,54px);
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+/* إطار داخلي مزدوج */
+.invite-card::before{
+  content:"";position:absolute;inset:11px;
+  border:1px solid rgba(201,162,107,.45);
+  border-radius:3px;pointer-events:none;
+}
+/* زخارف الأركان الأربعة */
+.invite-card .corner{position:absolute;width:54px;height:54px;color:var(--rose-gold);overflow:visible}
+.invite-card .c-tl{top:5px;left:5px}
+.invite-card .c-tr{top:5px;right:5px;transform:scaleX(-1)}
+.invite-card .c-bl{bottom:5px;left:5px;transform:scaleY(-1)}
+.invite-card .c-br{bottom:5px;right:5px;transform:scale(-1,-1)}
+.invite-orn{font-size:1.7rem;color:var(--rose-gold);margin-bottom:24px;position:relative}
+.dua{
+  font-family:'Amiri',serif;
+  font-size:clamp(1.15rem,3.3vw,1.6rem);
+  line-height:2.1;color:var(--ink);
+  margin-bottom:34px;position:relative;
+}
+.invite-heading{
+  font-family:var(--font-head);font-weight:700;
+  color:var(--rose-deep);font-size:1.35rem;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-bottom:20px;position:relative;
+}
+.invite-heading span{color:var(--rose-gold);font-size:.85rem}
+.invite-body{color:var(--ink-soft);line-height:2;margin-bottom:32px;position:relative}
+.invite-parents{position:relative}
+.invite-parents .pl{font-family:var(--font-deco);color:var(--rose-gold);letter-spacing:1px;margin-bottom:4px}
+.invite-parents .pn{color:var(--rose-deep);font-weight:600}
+.invite-parents .sep{color:var(--rose-gold);margin:16px 0;font-size:.9rem}
+
+/* ================================================================
+   عناصر متساقطة من فوق (لمعات)
+================================================================ */
+.sparkles{position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden}
+body.intro .sparkles{opacity:0}
+.spark{position:absolute;top:-8%;color:var(--rose-gold);opacity:0;will-change:transform;animation:sparkFall linear infinite}
+@keyframes sparkFall{
+  0%{transform:translateY(-10vh) translateX(0) rotate(0);opacity:0}
+  12%{opacity:.85}
+  88%{opacity:.55}
+  100%{transform:translateY(110vh) translateX(var(--sway,20px)) rotate(300deg);opacity:0}
+}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+.footer{
+  background:linear-gradient(160deg,var(--rose-deep),var(--rose));
+  color:#fff;text-align:center;padding:70px 20px 40px;
+}
+.footer .f-names{font-family:var(--font-head);font-size:clamp(2rem,7vw,3.4rem);font-weight:700}
+.footer .f-date{font-family:var(--font-deco);letter-spacing:3px;margin:10px 0 20px;opacity:.9}
+.footer .f-made{opacity:.85;font-size:.9rem}
+.footer .f-tag{font-family:var(--font-deco);letter-spacing:2px;margin-top:24px;font-size:1.1rem;opacity:.95}
+.footer .heart{color:var(--blush)}
+
+.contact{background:var(--cream);text-align:center}
+.contact .c-links{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:10px;color:var(--rose-deep)}
+.contact .c-links a{font-family:var(--font-deco);letter-spacing:1px;padding:10px 20px;border:1px solid var(--blush);border-radius:30px;transition:.3s;background:#fff}
+.contact .c-links a:hover{background:var(--rose);color:#fff}
+</style>
+</head>
+<body class="intro">
+
+<!-- شريط اللغة -->
+<div class="lang-bar">ع</div>
+
+<!-- تعريف زخرفة الركن (تُستخدم في أركان البرواز) -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="corner-orn" viewBox="0 0 80 80">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path d="M76,8 Q8,8 8,76"/>
+      <path d="M60,20 Q20,20 20,60" stroke-width="1" opacity=".55"/>
+      <circle cx="8" cy="8" r="3" fill="currentColor" stroke="none"/>
+      <path d="M40,8 q-4,6 -10,7 M8,40 q6,-4 7,-10"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- عناصر متساقطة من فوق -->
+<div class="sparkles" id="sparkles"></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- فيديو خلفية الغلاف (ثابت لحد ما الزائر يضغط انضم لنا) -->
+  <video class="hero-video" id="heroVideo" muted loop playsinline preload="auto">
+    <source src="https://k.top4top.io/m_3848cphg91.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <!-- بوابة الدخول -->
+  <div class="gate" id="gate">
+    <p class="gate-greet">يشرّفنا حضوركم</p>
+    <button class="gate-btn" id="joinBtn">✦ انضم لنا ✦</button>
+  </div>
+
+  <div class="hero-inner" style="top: -235px;">
+    <p class="greet"> اضف لــقصتنا خطوة</p>
+    <h1 class="names">ليلك <span class="amp">&amp;</span> هارون</h1>
+    <div class="flourish">✦</div>
+    <p class="date">٢٢ نوفمبر ٢٠٢٦</p>
+    <!-- <a href="#rsvp" class="btn">أكّد حضورك</a> -->
+  </div>
+
+  <!-- زرار كتم/تشغيل صوت الفيديو -->
+  <button class="sound-btn" id="soundBtn" aria-label="تشغيل الصوت">🔇</button>
+  <div class="scroll-hint">⌄</div>
+
+  <!-- فاصل السحاب (انتقال ناعم للسكشن التاني) -->
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="cloud-back"  d="M0,80 Q90,20 180,80 Q270,20 360,80 Q450,20 540,80 Q630,20 720,80 Q810,20 900,80 Q990,20 1080,80 Q1170,20 1260,80 Q1350,20 1440,80 L1440,120 L0,120 Z"/>
+      <path style="    fill: #e2ded9;" class="cloud-front" d="M0,80 Q90,50 180,80 Q270,50 360,80 Q450,50 540,80 Q630,50 720,80 Q810,50 900,80 Q990,50 1080,80 Q1170,50 1260,80 Q1350,50 1440,80 L1440,120 L0,120 Z"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ بطاقة الدعوة (البرواز) ============ -->
+<section class="section invite" style="padding: 0;">
+  <!-- <div class="container">
+    <div class="invite-card reveal">
+      <svg class="corner c-tl"><use href="#corner-orn"/></svg>
+      <svg class="corner c-tr"><use href="#corner-orn"/></svg>
+      <svg class="corner c-bl"><use href="#corner-orn"/></svg>
+      <svg class="corner c-br"><use href="#corner-orn"/></svg>
+
+      <div class="invite-orn">۞</div>
+      <p class="dua">اللهمَّ باركْ لهُما وباركْ عليهِما واجمعْ بينهُما في خير</p>
+      <div class="invite-heading"><span>✦</span> بطاقة دعوة <span>✦</span></div>
+      <p class="invite-body">بقلوبٍ مفعمةٍ بالفرح والسرور، نتشرّف بدعوتكم لمشاركتنا أجمل لحظات حياتنا في حفل زفافنا. حضوركم شرفٌ لنا وبهجةٌ تكتمل بها فرحتنا.</p>
+      <div class="invite-parents">
+        <p class="pl">والدا العريس</p>
+        <p class="pn">السيّد / .......... و السيّدة / ..........</p>
+        <div class="sep">✿</div>
+        <p class="pl">والدا العروس</p>
+        <p class="pn">السيّد / .......... و السيّدة / ..........</p>
+      </div>
+    </div>
+  </div> -->
+  <img src="https://i.ibb.co/M5pLw0BV/3.png"/>
+</section>
+
+<!-- ============ COUNTDOWN (FlipDown) ============ -->
+<section class="section countdown">
+  <div class="container">
+    <p class="eyebrow">العدّ التنازلي</p>
+    <h2 class="title">باقي على الفرح</h2>
+    <div class="divider"></div>
+    <div class="count-down">
+      <div class="flipdown" id="flipdown"></div>
+    </div>
+  </div>
+</section>
+<!-- مكتبة FlipDown -->
+<script src="https://pbutcher.uk/flipdown/js/flipdown/flipdown.js"></script>
+
+<!-- ============ LOVE STORY ============ -->
+<section class="section story">
+  <div class="container">
+    <p class="eyebrow">قصة حبنا</p>
+    <h2 class="title">قلبين… ونصيب واحد</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year">٢٠٢٠</div>
+        <h3 class="tl-title">أول لقاء</h3>
+        <p class="tl-text">جمعنا القدر في لحظة واحدة… نظرة وابتسامة، وحسّينا إن كل واحد فينا لقى نُصّه التاني.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">٢٠٢١</div>
+        <h3 class="tl-title">الحب بيكبر</h3>
+        <p class="tl-text">كل يوم كان بيزوّد الحب بيننا، واكتشفنا مع بعض إن الحب الحقيقي بيبقى أجمل لما يتشارك.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">٢٠٢٣</div>
+        <h3 class="tl-title">بنبني حياتنا</h3>
+        <p class="tl-text">إيد في إيد بدأنا نرسم مستقبلنا… أحلام مشتركة ووعود حلوة بينا واحنا واثقين في بعض.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">٢٠٢٥</div>
+        <h3 class="tl-title">أحلى «أيوة»</h3>
+        <p class="tl-text">لحظة الخطوبة… قلب بيدق بأمل وسؤال كنا مستنيينه من زمان، ودموع الفرحة ختمت وعدنا بالعُمر.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAM ============ -->
+<section class="section program">
+  <div class="container">
+    <p class="eyebrow">برنامج اليوم</p>
+    <h2 class="title">اللي جهّزناه لكم</h2>
+    <div class="divider"></div>
+    <div class="prog-grid">
+      <div class="prog-card reveal"><div class="prog-icon">🕓</div><div class="prog-time">٤:٣٠ م</div><div class="prog-name">استقبال الضيوف</div><div class="prog-desc">ترحيب واستقبال</div></div>
+      <div class="prog-card reveal"><div class="prog-icon">💍</div><div class="prog-time">٥:٠٠ م</div><div class="prog-name">عقد القران</div><div class="prog-desc">مراسم الكتب</div></div>
+      <div class="prog-card reveal"><div class="prog-icon">🥂</div><div class="prog-time">٦:٠٠ م</div><div class="prog-name">الكوكتيل</div><div class="prog-desc">مشروبات ومقبلات</div></div>
+      <div class="prog-card reveal"><div class="prog-icon">🍽️</div><div class="prog-time">٨:٠٠ م</div><div class="prog-name">العشاء</div><div class="prog-desc">مأدبة الزفاف</div></div>
+      <div class="prog-card reveal"><div class="prog-icon">💃</div><div class="prog-time">١٠:٣٠ م</div><div class="prog-name">أول رقصة</div><div class="prog-desc">رقصة العروسين</div></div>
+      <div class="prog-card reveal"><div class="prog-icon">🎉</div><div class="prog-time">١١:٠٠ م</div><div class="prog-name">الحفلة</div><div class="prog-desc">نرقص ونفرح!</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GIFTS ============ -->
+<section class="section gifts">
+  <div class="container">
+    <p class="eyebrow">الهدايا</p>
+    <h2 class="title">وجودكم أغلى هدية</h2>
+    <div class="divider"></div>
+    <div class="gift-card reveal">
+      <p>حضوركم معانا هو أهم حاجة بالنسبالنا. ولو حابين تهدونا حاجة، اعملوها بالطريقة اللي تريحكم.</p>
+      <p>لو تفضّلوا، ممكن تكون الهدية تحويل بنكي:</p>
+      <div class="iban-box">
+        <button class="btn-ghost" id="ibanBtn">إظهار رقم الحساب (IBAN)</button>
+        <div class="iban" id="ibanVal">EG## #### #### #### #### #### ####</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENT DETAILS ============ -->
+<section class="section event">
+  <div class="container">
+    <p class="eyebrow">تفاصيل المكان</p>
+    <h2 class="title">مكان الفرح</h2>
+    <p class="subtitle">مش قادرين نستنى نحتفل معاكم باليوم ده. دي كل التفاصيل اللي محتاجينها.</p>
+    <div class="event-grid">
+      <div class="event-card reveal">
+        <h3>قاعة الاحتفال</h3>
+        <div class="big-time">٤:٠٠ مساءً</div>
+        <p>قاعة النرجس — فندق الأندلس</p>
+        <p>شارع النيل، المعادي</p>
+        <p>القاهرة، مصر</p>
+        <div class="event-actions">
+          <a class="mini-btn" href="https://maps.google.com" target="_blank" rel="noopener">افتح في الخريطة</a>
+          <a class="mini-btn ghost" href="#" id="calBtn">أضف للتقويم</a>
+        </div>
+      </div>
+      <div class="event-card reveal">
+        <h3>الزي المطلوب</h3>
+        <div class="big-time">رسمي / أنيق</div>
+        <p>نتمنى من ضيوفنا يلبسوا بأناقة تليق باحتفالنا.</p>
+        <p>ألوان هادية ومناسبة لأجواء الفرح.</p>
+        <div class="event-actions">
+          <a class="mini-btn ghost" href="#travel">معلومات السفر</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RSVP ============ -->
+<section class="section rsvp" id="rsvp">
+  <div class="container">
+    <p class="eyebrow">كونوا معانا</p>
+    <h2 class="title">تأكيد الحضور</h2>
+    <p class="subtitle">برجاء تأكيد حضوركم قبل ٢٢ أكتوبر ٢٠٢٦</p>
+    <form class="rsvp-form reveal" id="rsvpForm">
+      <div class="field">
+        <label for="name">الاسم بالكامل *</label>
+        <input type="text" id="name" name="name" required placeholder="اكتب اسمك هنا" />
+      </div>
+      <div class="field">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" name="email" placeholder="example@email.com" />
+      </div>
+      <div class="field">
+        <label>هتقدر تحضر؟ *</label>
+        <div class="choice">
+          <label><input type="radio" name="attend" value="yes" required><span>😊 هحضر بكل سعادة</span></label>
+          <label><input type="radio" name="attend" value="no"><span>😢 معتذر للأسف</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="msg">رسالة للعروسين</label>
+        <textarea id="msg" name="msg" rows="3" placeholder="اكتب كلمة حلوة…"></textarea>
+      </div>
+      <button type="submit" class="btn">إرسال التأكيد</button>
+      <p class="form-msg" id="formMsg">شكراً ليك! وصلنا تأكيدك 💕</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ TRAVEL ============ -->
+<section class="section travel" id="travel">
+  <div class="container">
+    <p class="eyebrow">جهّزوا رحلتكم</p>
+    <h2 class="title">السفر والإقامة</h2>
+    <p class="subtitle">عايزين إقامتكم تكون مريحة قد ما نقدر. دي بعض الاقتراحات.</p>
+    <div class="travel-grid">
+      <div class="travel-block reveal">
+        <h3>أماكن للإقامة</h3>
+        <div class="hotel">
+          <span class="badge">٥ نجوم</span>
+          <h4>فندق الأندلس</h4>
+          <p>٥ دقايق من القاعة · سعر خاص لضيوف الفرح</p>
+        </div>
+        <div class="hotel">
+          <span class="badge">٤ نجوم</span>
+          <h4>فندق وسط البلد</h4>
+          <p>١٥ دقيقة من القاعة · مناسب لاستكشاف المدينة</p>
+        </div>
+      </div>
+      <div class="travel-block reveal">
+        <h3>طريقة الوصول</h3>
+        <div class="transport">
+          <h4>✈️ بالطيران</h4>
+          <p>أقرب مطار على بُعد ٣٠ دقيقة تقريباً من القاعة. ننصح بحجز التذاكر بدري.</p>
+        </div>
+        <div class="transport">
+          <h4>🚗 بالعربية</h4>
+          <p>يوجد موقف سيارات مجاني بالقاعة. هنشارك إحداثيات الـ GPS قرب الموعد.</p>
+        </div>
+        <h3 style="margin-top:22px">أماكن تستحق الزيارة</h3>
+        <div class="todo-list">
+          <span>المدينة القديمة</span>
+          <span>الكورنيش</span>
+          <span>الأسواق الشعبية</span>
+          <span>مطاعم فاخرة</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact">
+  <div class="container">
+    <p class="eyebrow">عندكم أسئلة؟</p>
+    <h2 class="title">تواصلوا معانا</h2>
+    <div class="divider"></div>
+    <div class="c-links">
+      <a href="mailto:wedding@example.com">wedding@example.com</a>
+      <a href="tel:+201234567890">+20 123 456 7890</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="f-names">ليلك &amp; هارون</div>
+  <div class="f-date">٢٢ نوفمبر ٢٠٢٦</div>
+  <div class="f-made">صُنع بكل <span class="heart">♥</span> ليومنا المميز</div>
+  <div class="f-tag">#ليلك_وهارون_٢٠٢٦</div>
+</footer>
+
+<!-- موسيقى الخلفية -->
+<audio id="bgMusic" src="https://a.top4top.io/m_38484qorh1.mp3" loop preload="auto"></audio>
+
+<script>
+/* ================= عدّاد FlipDown ================= */
+/* عدّل تاريخ الفرح هنا (السنة، الشهر-1، اليوم، الساعة، الدقيقة) */
+(function(){
+  const weddingDate = new Date(2026, 10, 22, 16, 0, 0); // 22 نوفمبر 2026 - 4:00م
+  const ts = Math.floor(weddingDate.getTime() / 1000);  // FlipDown بيحتاج ثواني
+  function initFlip(){
+    if(typeof FlipDown === 'undefined'){ return setTimeout(initFlip, 200); }
+    new FlipDown(ts, 'flipdown', {
+      theme: 'dark',                               // 'dark' أو 'light'
+      headings: ['أيام', 'ساعات', 'دقائق', 'ثواني']
+    }).start().ifEnded(() => {
+      document.querySelector('.flipdown').innerHTML = '<h2 style="color:var(--rose-deep);text-align:center">النهارده يوم الفرح! 💍</h2>';
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initFlip);
+  }else{ initFlip(); }
+})();
+
+/* ================= إظهار IBAN ================= */
+document.getElementById('ibanBtn').addEventListener('click', function(){
+  const v = document.getElementById('ibanVal');
+  v.classList.toggle('show');
+  this.textContent = v.classList.contains('show') ? 'إخفاء رقم الحساب' : 'إظهار رقم الحساب (IBAN)';
+});
+
+/* ================= فورم الـ RSVP ================= */
+document.getElementById('rsvpForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  /* ملاحظة: ده عرض تجريبي — لربطه بإيميل/قاعدة بيانات استخدم خدمة زي Formspree أو Google Forms */
+  document.getElementById('formMsg').classList.add('show');
+  this.reset();
+  setTimeout(()=>document.getElementById('formMsg').classList.remove('show'), 6000);
+});
+
+/* ================= أزرار المكان ================= */
+document.getElementById('calBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  alert('هيتم إضافة رابط تقويم Google/Apple هنا 🗓️');
+});
+
+/* ================= ظهور العناصر عند التمرير ================= */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ================= عناصر متساقطة من فوق (لمعات) ================= */
+(function(){
+  const box = document.getElementById('sparkles');
+  const glyphs = ['✦','✧','❋','❁','･','∗'];
+  const N = 26;
+  for(let i=0;i<N;i++){
+    const s = document.createElement('span');
+    s.className = 'spark';
+    s.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+    s.style.left = Math.random()*100 + '%';
+    s.style.fontSize = (0.45 + Math.random()*1.05) + 'rem';
+    s.style.setProperty('--sway', (Math.random()*90 - 45) + 'px');
+    s.style.animationDuration = (8 + Math.random()*10) + 's';
+    s.style.animationDelay = (Math.random()*12) + 's';
+    box.appendChild(s);
+  }
+})();
+
+/* ================= بوابة الدخول + الموسيقى + الفيديو ================= */
+(function(){
+  const vid    = document.getElementById('heroVideo');
+  const music  = document.getElementById('bgMusic');
+  const joinBtn= document.getElementById('joinBtn');
+  const soundBtn = document.getElementById('soundBtn');
+
+  /* أول ما الزائر يضغط "انضم لنا" */
+  joinBtn.addEventListener('click', function(){
+    /* 1) شغّل الفيديو (صامت — بيفضل خلفية بصرية) */
+    vid.play().catch(()=>{});
+    /* 2) شغّل الموسيقى */
+    music.volume = 0.7;
+    music.play().catch(()=>{});
+    /* 3) اطلع من وضع البوابة → يظهر الأسماء وباقي الموقع */
+    document.body.classList.remove('intro');
+  });
+
+  /* زرار الصوت (تحت الشمال) — يكتم/يشغّل الموسيقى */
+  soundBtn.textContent = '🔊';
+  soundBtn.addEventListener('click', function(){
+    music.muted = !music.muted;
+    if(music.muted){
+      soundBtn.textContent = '🔇';
+      soundBtn.setAttribute('aria-label','تشغيل الموسيقى');
+    }else{
+      music.play().catch(()=>{});
+      soundBtn.textContent = '🔊';
+      soundBtn.setAttribute('aria-label','كتم الموسيقى');
+    }
+  });
+})();
+</script>
+</body>
+</html>
