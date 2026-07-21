@@ -16,20 +16,20 @@
 
 <style>
 /* ================================================================
-   لوحة الألوان — إيفوري / ذهبي / بني فخم
+   لوحة الألوان — أسود / أوف-وايت + لمسة بينك
    عدّل القيم دي لو حبيت تغيّر الألوان
 ================================================================ */
 :root{
-  --blush:      #ebe2cf;   /* بيج فاتح - خلفيات وعناصر */
-  --rose:       #c2a15c;   /* ذهبي أساسي */
-  --rose-deep:  #5c4a33;   /* بني غامق دافئ - العناوين والأزرار */
-  --rose-gold:  #b8935a;   /* لمسة ذهبية */
-  --cream:      #f6f1e7;   /* إيفوري - الخلفية العامة */
-  --ink:        #43392e;   /* لون النص الأساسي (بني غامق) */
-  --ink-soft:   #8a7a63;   /* نص ثانوي */
-  --white:      #fdfbf6;   /* أوف-وايت دافئ للكروت */
-  --shadow:     0 20px 60px rgba(92,74,51,.15);
-  --shadow-sm:  0 8px 24px rgba(92,74,51,.12);
+  --blush:      #f0e2e6;   /* بينك فاتح جداً - خلفيات وحدود */
+  --rose:       #d98ba0;   /* بينك أساسي - اللمسة اللونية */
+  --rose-deep:  #171717;   /* أسود - العناوين والأزرار */
+  --rose-gold:  #c9788e;   /* بينك أعمق شوية - لمسات */
+  --cream:      #f4f2ef;   /* أوف-وايت - الخلفية العامة */
+  --ink:        #191919;   /* لون النص الأساسي (أسود تقريباً) */
+  --ink-soft:   #6f6f6f;   /* نص ثانوي (رمادي) */
+  --white:      #faf9f7;   /* أوف-وايت للكروت */
+  --shadow:     0 20px 60px rgba(15,15,15,.15);
+  --shadow-sm:  0 8px 24px rgba(15,15,15,.12);
   --font-head:  'El Messiri', 'Aref Ruqaa', serif;
   --font-deco:  'Aref Ruqaa', 'Amiri', serif;
   --font-body:  'El Messiri', sans-serif;
@@ -42,11 +42,11 @@ body{
   background-color:var(--cream);
   /* لمسة ذهبية خفيفة متناثرة في الخلفية زي الصورة */
   background-image:
-    radial-gradient(circle at 18% 12%, rgba(184,147,90,.06) 0 2px, transparent 3px),
-    radial-gradient(circle at 82% 22%, rgba(184,147,90,.05) 0 2px, transparent 3px),
-    radial-gradient(circle at 40% 55%, rgba(184,147,90,.045) 0 2px, transparent 3px),
-    radial-gradient(circle at 70% 78%, rgba(184,147,90,.05) 0 2px, transparent 3px),
-    radial-gradient(circle at 12% 88%, rgba(184,147,90,.045) 0 2px, transparent 3px);
+    radial-gradient(circle at 18% 12%, rgba(217,139,160,.07) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 22%, rgba(217,139,160,.06) 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 55%, rgba(217,139,160,.05) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 78%, rgba(217,139,160,.06) 0 2px, transparent 3px),
+    radial-gradient(circle at 12% 88%, rgba(217,139,160,.05) 0 2px, transparent 3px);
   background-size:520px 520px;
   color:var(--ink);
   line-height:1.9;
@@ -125,7 +125,7 @@ a{color:inherit;text-decoration:none}
   align-items:center;justify-content:center;
   text-align:center;
   position:relative;
-  background:linear-gradient(160deg,#5c4a33 0%,#b8935a 100%);
+  background:linear-gradient(160deg,#131313 0%,#3a2a30 100%);
   overflow:hidden;
   padding:40px 20px;
 }
@@ -137,7 +137,7 @@ a{color:inherit;text-decoration:none}
 /* طبقة تعتيم خفيفة عشان النص يبان */
 .hero-overlay{
   position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg,rgba(40,25,45,.25) 0%,rgba(40,25,45,.05) 40%,rgba(40,25,45,.45) 100%);
+  background:linear-gradient(180deg,rgba(15,15,15,.35) 0%,rgba(15,15,15,.08) 40%,rgba(15,15,15,.55) 100%);
 }
 /* زرار الصوت */
 .sound-btn{
@@ -177,7 +177,7 @@ body.intro .hero-inner,body.intro .scroll-hint,body.intro .sound-btn{opacity:0;v
 }
 .gate .gate-greet{
   font-family:var(--font-deco);
-  letter-spacing:5px;color:#f6d9b0;
+  letter-spacing:5px;color:#f2c9d4;
   font-size:clamp(.8rem,2vw,1rem);
   text-shadow:0 2px 12px rgba(0,0,0,.5);
 }
@@ -210,7 +210,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
 .hero .greet{
   font-family:var(--font-deco);
   letter-spacing:6px;
-  color:#f6d9b0;
+  color:#f2c9d4;
   font-size:clamp(.85rem,2vw,1.05rem);
   margin-bottom:24px;
   text-shadow:0 2px 12px rgba(0,0,0,.45);
@@ -224,8 +224,8 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   margin:10px 0;
   text-shadow:0 4px 24px rgba(0,0,0,.5);
 }
-.hero .amp{color:#f6d9b0;font-family:var(--font-deco)}
-.hero .flourish{color:#f6d9b0;font-size:1.6rem;margin:14px 0;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hero .amp{color:#f2c9d4;font-family:var(--font-deco)}
+.hero .flourish{color:#f2c9d4;font-size:1.6rem;margin:14px 0;text-shadow:0 2px 12px rgba(0,0,0,.4)}
 .hero .date{
   font-family:var(--font-deco);
   letter-spacing:4px;
@@ -238,7 +238,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   font-family:var(--font-deco);
   letter-spacing:2px;
   font-size:clamp(.8rem,2.2vw,1rem);
-  color:#f6d9b0;
+  color:#f2c9d4;
   margin-top:6px;
   text-shadow:0 2px 12px rgba(0,0,0,.5);
 }
@@ -256,7 +256,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   box-shadow:var(--shadow);
   transition:transform .3s,box-shadow .3s;
 }
-.btn:hover{transform:translateY(-3px);box-shadow:0 25px 55px rgba(92,74,51,.32)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 25px 55px rgba(15,15,15,.28)}
 .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--rose-gold);font-size:1.5rem;animation:bob 1.8s ease-in-out infinite;z-index:2}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
 
@@ -417,7 +417,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   padding:clamp(40px,6vw,58px) clamp(24px,5vw,44px);
   box-shadow:var(--shadow);
 }
-.rsvp-form::before{content:"";position:absolute;inset:11px;border:1px solid rgba(201,162,107,.4);border-radius:4px;pointer-events:none}
+.rsvp-form::before{content:"";position:absolute;inset:11px;border:1px solid rgba(217,139,160,.4);border-radius:4px;pointer-events:none}
 .rsvp-form .corner{position:absolute;width:50px;height:50px;color:var(--rose-gold);overflow:visible}
 .rsvp-form .c-tl{top:6px;left:6px}
 .rsvp-form .c-tr{top:6px;right:6px;transform:scaleX(-1)}
@@ -451,7 +451,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
 .rsvp-opts input{display:none}
 .rsvp-opts label:has(input:checked){
   border-color:var(--rose-gold);
-  background:linear-gradient(135deg,#b08d4c,#c9a26b);
+  background:linear-gradient(135deg,var(--rose),var(--rose-gold));
   color:#fff;box-shadow:var(--shadow-sm);
 }
 
@@ -480,10 +480,10 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   position:relative;max-width:330px;margin:0 auto;
   background:var(--cream);border-radius:20px;
   box-shadow:var(--shadow);padding:10px 10px 18px;
-  border:1px solid rgba(201,162,107,.3);
+  border:1px solid rgba(217,139,160,.3);
 }
 .std-head{
-  background:linear-gradient(135deg,#8a6d3b,#c9a26b);
+  background:linear-gradient(135deg,#171717,var(--rose-gold));
   color:#fff;text-align:center;padding:15px;
   border-radius:14px;
   font-family:var(--font-deco);letter-spacing:3px;font-size:1.15rem;
@@ -493,7 +493,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
 .std-num{font-family:var(--font-head);font-weight:700;color:var(--rose-gold);font-size:4.2rem;line-height:1;margin:6px 0}
 .std-time{color:var(--ink-soft);font-size:1rem}
 .std-hijri{color:var(--rose-gold);font-family:var(--font-deco);font-size:.9rem;margin-top:6px}
-.std-hr{border:none;border-top:1.5px dashed rgba(201,162,107,.55);margin:18px 6px}
+.std-hr{border:none;border-top:1.5px dashed rgba(217,139,160,.55);margin:18px 6px}
 .std-note{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ink-soft);font-size:.9rem;margin-bottom:16px}
 .std-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .std-btn{
@@ -537,7 +537,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
 /* إطار داخلي مزدوج */
 .invite-card::before{
   content:"";position:absolute;inset:11px;
-  border:1px solid rgba(201,162,107,.45);
+  border:1px solid rgba(217,139,160,.45);
   border-radius:3px;pointer-events:none;
 }
 /* زخارف الأركان الأربعة */
@@ -631,14 +631,13 @@ body.intro .sparkles{opacity:0}
     top: -200px;
 ">
     <img src="./lha.png" style="margin:0 auto;width: 42%;"/>
-    <p class="gate-greet">يشرّفنا حضوركم</p>
-    <button class="gate-btn" id="joinBtn">✦ انضم لنا ✦</button>
+    <button class="gate-btn" id="joinBtn"> أضف لقصتنا سطراً </button>
   </div>
 
   <div class="hero-inner" style="top: -80px;">
     <p class="greet"> اضف لــقصتنا خطوة</p>
     <img src="./lha.png" style="margin: auto;width: 42%;"/>
-    <h1 class="names">ليلك <span class="amp">&amp;</span> هارون</h1>
+    <h1 class="names">ليـلــك  <span class="amp">&amp;</span> هارون</h1>
     <div class="flourish">✦</div>
     <p class="date">الخميس ١٣ أغسطس ٢٠٢٦</p>
     <p class="date-hijri">٣٠ صفر ١٤٤٨ هـ</p>
@@ -687,7 +686,7 @@ body.intro .sparkles{opacity:0}
 <section class="section countdown">
   <div class="container">
     <p class="eyebrow">العدّ التنازلي</p>
-    <h2 class="title">باقي على الفرح</h2>
+    <h2 class="title">  لا اغلى واجمل تواريخ العمر</h2>
     <div class="divider"></div>
     <div class="count-down">
       <div class="flipdown" id="flipdown"></div>
@@ -722,7 +721,7 @@ body.intro .sparkles{opacity:0}
 <!-- ============ LOVE STORY ============ -->
 <section class="section story">
   <div class="container">
-    <p class="eyebrow">قصة حبنا</p>
+    <p class="eyebrow">نقول قصتنا </p>
     <h2 class="title">بالحلال وبالشرع المبين نعلنها أمام العالمين</h2>  
   </div>
 </section>
@@ -761,8 +760,8 @@ body.intro .sparkles{opacity:0}
 <section class="section event">
   <div class="container">
     <p class="eyebrow">تفاصيل المكان</p>
-    <h2 class="title">مكان الفرح</h2>
-    <p class="subtitle">مش قادرين نستنى نحتفل معاكم باليوم ده. دي كل التفاصيل اللي محتاجينها.</p>
+    <h2 class="title"> مكان الزفاف</h2>
+    <p class="subtitle">وقت اللقاء قرب وحان <br> يا شوق عطر هالمكان🥰</p>
     <div class="event-grid">
       <div class="event-card reveal">
         <h3>قاعة الاحتفال</h3>
@@ -851,46 +850,7 @@ body.intro .sparkles{opacity:0}
 </section>
 
 <!-- ============ TRAVEL ============ -->
-<section class="section travel" id="travel">
-  <div class="container">
-    <p class="eyebrow">جهّزوا رحلتكم</p>
-    <h2 class="title">السفر والإقامة</h2>
-    <p class="subtitle">عايزين إقامتكم تكون مريحة قد ما نقدر. دي بعض الاقتراحات.</p>
-    <div class="travel-grid">
-      <div class="travel-block reveal">
-        <h3>أماكن للإقامة</h3>
-        <div class="hotel">
-          <span class="badge">٥ نجوم</span>
-          <h4>فندق الأندلس</h4>
-          <p>٥ دقايق من القاعة · سعر خاص لضيوف الفرح</p>
-        </div>
-        <div class="hotel">
-          <span class="badge">٤ نجوم</span>
-          <h4>فندق وسط البلد</h4>
-          <p>١٥ دقيقة من القاعة · مناسب لاستكشاف المدينة</p>
-        </div>
-      </div>
-      <div class="travel-block reveal">
-        <h3>طريقة الوصول</h3>
-        <div class="transport">
-          <h4>✈️ بالطيران</h4>
-          <p>أقرب مطار على بُعد ٣٠ دقيقة تقريباً من القاعة. ننصح بحجز التذاكر بدري.</p>
-        </div>
-        <div class="transport">
-          <h4>🚗 بالعربية</h4>
-          <p>يوجد موقف سيارات مجاني بالقاعة. هنشارك إحداثيات الـ GPS قرب الموعد.</p>
-        </div>
-        <h3 style="margin-top:22px">أماكن تستحق الزيارة</h3>
-        <div class="todo-list">
-          <span>المدينة القديمة</span>
-          <span>الكورنيش</span>
-          <span>الأسواق الشعبية</span>
-          <span>مطاعم فاخرة</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- ============ CONTACT ============ -->
 <section class="section contact">
