@@ -627,12 +627,15 @@ body.intro .sparkles{opacity:0}
   <div class="hero-overlay"></div>
 
   <!-- بوابة الدخول -->
-  <div class="gate" id="gate">
+  <div class="gate" id="gate" style="
+    top: -200px;
+">
+    <img src="./lha.png" style="margin:0 auto;width: 42%;"/>
     <p class="gate-greet">يشرّفنا حضوركم</p>
     <button class="gate-btn" id="joinBtn">✦ انضم لنا ✦</button>
   </div>
 
-  <div class="hero-inner" style="top: -235px;">
+  <div class="hero-inner" style="top: -80px;">
     <p class="greet"> اضف لــقصتنا خطوة</p>
     <img src="./lha.png" style="margin: auto;width: 42%;"/>
     <h1 class="names">ليلك <span class="amp">&amp;</span> هارون</h1>
@@ -720,30 +723,7 @@ body.intro .sparkles{opacity:0}
 <section class="section story">
   <div class="container">
     <p class="eyebrow">قصة حبنا</p>
-    <h2 class="title">قلبين… ونصيب واحد</h2>
-    <div class="divider"></div>
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="tl-year">٢٠٢٠</div>
-        <h3 class="tl-title">أول لقاء</h3>
-        <p class="tl-text">جمعنا القدر في لحظة واحدة… نظرة وابتسامة، وحسّينا إن كل واحد فينا لقى نُصّه التاني.</p>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">٢٠٢١</div>
-        <h3 class="tl-title">الحب بيكبر</h3>
-        <p class="tl-text">كل يوم كان بيزوّد الحب بيننا، واكتشفنا مع بعض إن الحب الحقيقي بيبقى أجمل لما يتشارك.</p>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">٢٠٢٣</div>
-        <h3 class="tl-title">بنبني حياتنا</h3>
-        <p class="tl-text">إيد في إيد بدأنا نرسم مستقبلنا… أحلام مشتركة ووعود حلوة بينا واحنا واثقين في بعض.</p>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">٢٠٢٥</div>
-        <h3 class="tl-title">أحلى «أيوة»</h3>
-        <p class="tl-text">لحظة الخطوبة… قلب بيدق بأمل وسؤال كنا مستنيينه من زمان، ودموع الفرحة ختمت وعدنا بالعُمر.</p>
-      </div>
-    </div>
+    <h2 class="title">بالحلال وبالشرع المبين نعلنها أمام العالمين</h2>  
   </div>
 </section>
 
@@ -767,16 +747,12 @@ body.intro .sparkles{opacity:0}
 <!-- ============ GIFTS ============ -->
 <section class="section gifts">
   <div class="container">
-    <p class="eyebrow">الهدايا</p>
+    <p class="eyebrow">ليلك تقولكم</p>
     <h2 class="title">وجودكم أغلى هدية</h2>
     <div class="divider"></div>
     <div class="gift-card reveal">
-      <p>حضوركم معانا هو أهم حاجة بالنسبالنا. ولو حابين تهدونا حاجة، اعملوها بالطريقة اللي تريحكم.</p>
-      <p>لو تفضّلوا، ممكن تكون الهدية تحويل بنكي:</p>
-      <div class="iban-box">
-        <button class="btn-ghost" id="ibanBtn">إظهار رقم الحساب (IBAN)</button>
-        <div class="iban" id="ibanVal">EG## #### #### #### #### #### ####</div>
-      </div>
+      <p>حضوركم معي اهم حاجة بالنسبه لي وجودكم راح يسعدني  وادري ان ما حولي إلا حبايب والي غايب قلبه ومشاعره تنوب عنه (احبكم)</p>
+     
     </div>
   </div>
 </section>
@@ -791,11 +767,11 @@ body.intro .sparkles{opacity:0}
       <div class="event-card reveal">
         <h3>قاعة الاحتفال</h3>
         <div class="big-time">٩:٠٠ مساءً</div>
-        <p>قاعة النرجس — فندق الأندلس</p>
-        <p>شارع النيل، المعادي</p>
-        <p>القاهرة، مصر</p>
+        <p>قاعة سهارى للاحتفالات</p>
+        <p>حي الروابي</p>
+        <p>جدة، السعودية</p>
         <div class="event-actions">
-          <a class="mini-btn" href="https://maps.google.com" target="_blank" rel="noopener">افتح في الخريطة</a>
+          <a class="mini-btn" href="https://www.google.com/maps/search/?api=1&query=%D9%82%D8%A7%D8%B9%D8%A9+%D8%B3%D9%87%D8%A7%D8%B1%D9%89+%D9%84%D9%84%D8%A7%D8%AD%D8%AA%D9%81%D8%A7%D9%84%D8%A7%D8%AA+%D8%AD%D9%8A+%D8%A7%D9%84%D8%B1%D9%88%D8%A7%D8%A8%D9%8A+%D8%AC%D8%AF%D8%A9" target="_blank" rel="noopener">افتح في الخريطة</a>
           <div class="cal-wrap">
             <button class="mini-btn ghost" id="calBtn" aria-haspopup="true" aria-expanded="false">🗓️ أضف للتقويم</button>
             <div class="cal-menu" id="calMenu" role="menu">
@@ -960,12 +936,7 @@ body.intro .sparkles{opacity:0}
   }else{ initFlip(); }
 })();
 
-/* ================= إظهار IBAN ================= */
-document.getElementById('ibanBtn').addEventListener('click', function(){
-  const v = document.getElementById('ibanVal');
-  v.classList.toggle('show');
-  this.textContent = v.classList.contains('show') ? 'إخفاء رقم الحساب' : 'إظهار رقم الحساب (IBAN)';
-});
+
 
 /* ================= فورم الـ RSVP ================= */
 document.getElementById('rsvpForm').addEventListener('submit', function(e){
@@ -985,7 +956,7 @@ document.getElementById('rsvpForm').addEventListener('submit', function(e){
     start:    '2026-08-13T21:00:00',   // بداية الحفل (توقيت القاهرة)
     end:      '2026-08-14T01:00:00',   // نهاية الحفل (توقيت القاهرة)
     tzOffset: 3,                        // فرق توقيت القاهرة عن UTC (+3 صيفاً في أغسطس)
-    location: 'قاعة النرجس — فندق الأندلس، شارع النيل، المعادي، القاهرة، مصر',
+    location: 'قاعة سهارى للاحتفالات، حي الروابي، جدة، السعودية',
     details:  'يشرّفنا حضوركم في حفل زفافنا. بحبنا، ليلك و هارون 💕'
   };
 
