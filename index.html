@@ -210,7 +210,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
 .hero .greet{
   font-family:var(--font-deco);
   letter-spacing:6px;
-  color:#f2c9d4;
+  color:var(--rose-gold);
   font-size:clamp(.85rem,2vw,1.05rem);
   margin-bottom:24px;
   text-shadow:0 2px 12px rgba(0,0,0,.45);
@@ -224,8 +224,8 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   margin:10px 0;
   text-shadow:0 4px 24px rgba(0,0,0,.5);
 }
-.hero .amp{color:#f2c9d4;font-family:var(--font-deco)}
-.hero .flourish{color:#f2c9d4;font-size:1.6rem;margin:14px 0;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hero .amp{color:var(--rose-gold) ;font-family:var(--font-deco)}
+.hero .flourish{color:var(--rose-gold);font-size:1.6rem;margin:14px 0;text-shadow:0 2px 12px rgba(0,0,0,.4)}
 .hero .date{
   font-family:var(--font-deco);
   letter-spacing:4px;
@@ -238,7 +238,7 @@ body:not(.intro) .hero-inner{animation:heroReveal 1.2s ease .2s both}
   font-family:var(--font-deco);
   letter-spacing:2px;
   font-size:clamp(.8rem,2.2vw,1rem);
-  color:#f2c9d4;
+  color:var(--rose-gold);
   margin-top:6px;
   text-shadow:0 2px 12px rgba(0,0,0,.5);
 }
@@ -756,7 +756,7 @@ body.intro .sparkles{opacity:0}
 </section>
 
 <!-- ============ EVENT DETAILS ============ -->
-<section class="section event">
+<section class="section event" id="eventSection">
   <div class="container">
     <p class="eyebrow">تفاصيل المكان</p>
     <h2 class="title"> مكان الزفاف</h2>
@@ -859,8 +859,7 @@ body.intro .sparkles{opacity:0}
     <h2 class="title">تواصلوا معانا</h2>
     <div class="divider"></div>
     <div class="c-links">
-      <a href="mailto:wedding@example.com">wedding@example.com</a>
-      <a href="tel:+201234567890">+20 123 456 7890</a>
+      <a href="tel:+966598330524">⁦+966 59 833 0524⁩</a>
     </div>
   </div>
 </section>
@@ -875,6 +874,7 @@ body.intro .sparkles{opacity:0}
 
 <!-- موسيقى الخلفية -->
 <audio id="bgMusic" src="https://a.top4top.io/m_38484qorh1.mp3" loop preload="auto"></audio>
+<audio id="venueMusic" src="venue-music.mp3" loop preload="auto"></audio>
 
 <script>
 /* ================= عدّاد FlipDown ================= */
@@ -1048,31 +1048,90 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ================= بوابة الدخول + الموسيقى + الفيديو ================= */
 (function(){
-  const vid    = document.getElementById('heroVideo');
-  const music  = document.getElementById('bgMusic');
-  const joinBtn= document.getElementById('joinBtn');
-  const soundBtn = document.getElementById('soundBtn');
+  const vid        = document.getElementById('heroVideo');
+  const music      = document.getElementById('bgMusic');      // الموسيقى الأولى (خلفية عامة)
+  const venueMusic = document.getElementById('venueMusic');   // موسيقى سكشن المكان
+  const joinBtn    = document.getElementById('joinBtn');
+  const soundBtn   = document.getElementById('soundBtn');
+  const eventSec   = document.getElementById('eventSection');
+
+  const MAX_VOL   = 0.7;    // أقصى مستوى صوت
+  const FADE_MS   = 1200;   // مدة التلاشي بين الأغنيتين
+  music.volume = MAX_VOL;
+  venueMusic.volume = MAX_VOL;
+
+  let started   = false;  // اتضغط على "انضم لنا"؟
+  let isMuted   = false;  // حالة الكتم (زرار الصوت)
+  let current   = music;  // المقطع الشغّال حالياً
+  let fadeTimer = null;   // مؤقّت التلاشي الحالي
+
+  /* التبديل بين المقطعين مع تدرّج ناعم (crossfade) */
+  function switchTo(next){
+    if(current === next) return;
+    const prev = current;
+    current = next;
+    if(fadeTimer) clearInterval(fadeTimer);
+
+    if(!started || isMuted){
+      // مش شغّالة أصلاً (لسه ماضغطش انضم / أو مكتوم) — بدّل من غير صوت
+      prev.pause(); prev.currentTime = 0; prev.volume = MAX_VOL;
+      return;
+    }
+
+    next.volume = 0;                 // التانية تبدأ من الصفر وتعلى تدريجياً
+    next.play().catch(()=>{});
+
+    const steps = 30;
+    const stepDur = FADE_MS / steps;
+    let i = 0;
+    fadeTimer = setInterval(function(){
+      i++;
+      const t = i / steps;           // من 0 لـ 1
+      prev.volume = Math.max(0, MAX_VOL * (1 - t));
+      next.volume = Math.min(MAX_VOL, MAX_VOL * t);
+      if(i >= steps){
+        clearInterval(fadeTimer); fadeTimer = null;
+        prev.pause();
+        prev.currentTime = 0;        // نرجّع السابقة لبدايتها للمرة الجاية
+        prev.volume = MAX_VOL;
+        next.volume = MAX_VOL;
+      }
+    }, stepDur);
+  }
 
   /* أول ما الزائر يضغط "انضم لنا" */
   joinBtn.addEventListener('click', function(){
-    /* 1) شغّل الفيديو (صامت — بيفضل خلفية بصرية) */
-    vid.play().catch(()=>{});
-    /* 2) شغّل الموسيقى */
-    music.volume = 0.7;
-    music.play().catch(()=>{});
-    /* 3) اطلع من وضع البوابة → يظهر الأسماء وباقي الموقع */
-    document.body.classList.remove('intro');
+    started = true;
+    vid.play().catch(()=>{});               // الفيديو صامت خلفية بصرية
+    current.play().catch(()=>{});            // شغّل الموسيقى الحالية
+    document.body.classList.remove('intro'); // اطلع من وضع البوابة
   });
 
-  /* زرار الصوت (تحت الشمال) — يكتم/يشغّل الموسيقى */
+  /* لما يوصل الزائر لسكشن المكان → وقّف الأولى وشغّل التانية،
+     ولو طلع بره السكشن → رجّع الموسيقى الأولى */
+  if('IntersectionObserver' in window && eventSec){
+    const obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          switchTo(venueMusic);
+        }else{
+          switchTo(music);
+        }
+      });
+    }, { threshold: 0.35 });   // يتفعّل لما يظهر ~ثلث السكشن
+    obs.observe(eventSec);
+  }
+
+  /* زرار الصوت (تحت الشمال) — يكتم/يشغّل المقطع الشغّال */
   soundBtn.textContent = '🔊';
   soundBtn.addEventListener('click', function(){
-    music.muted = !music.muted;
-    if(music.muted){
+    isMuted = !isMuted;
+    music.muted = venueMusic.muted = isMuted;
+    if(isMuted){
       soundBtn.textContent = '🔇';
       soundBtn.setAttribute('aria-label','تشغيل الموسيقى');
     }else{
-      music.play().catch(()=>{});
+      current.play().catch(()=>{});
       soundBtn.textContent = '🔊';
       soundBtn.setAttribute('aria-label','كتم الموسيقى');
     }
