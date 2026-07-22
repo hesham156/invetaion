@@ -914,13 +914,40 @@ body.intro .sparkles{opacity:0}
 
 
 /* ================= فورم الـ RSVP ================= */
-document.getElementById('rsvpForm').addEventListener('submit', function(e){
+document.getElementById('rsvpForm').addEventListener('submit', async function(e){
   e.preventDefault();
-  /* ملاحظة: ده عرض تجريبي — لربطه بإيميل/قاعدة بيانات استخدم خدمة زي Formspree أو Google Forms */
-  document.getElementById('formMsg').classList.add('show');
-  this.reset();
-  this.dispatchEvent(new Event('reset-guests'));  // يرجّع عدّاد المرافقين لصفر
-  setTimeout(()=>document.getElementById('formMsg').classList.remove('show'), 6000);
+  const form   = this;
+  const btn    = form.querySelector('button[type="submit"]');
+  const msgEl  = document.getElementById('formMsg');
+  const checked= form.querySelector('input[name="attend"]:checked');
+
+  const data = {
+    name:   document.getElementById('name').value.trim(),
+    attend: checked ? checked.value : '',
+    guests: parseInt(document.getElementById('guestsInput').value, 10) || 0,
+    msg:    document.getElementById('msg').value.trim()
+  };
+
+  const oldTxt = btn.textContent;
+  btn.disabled = true; btn.textContent = 'جارٍ الإرسال…';
+  try{
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if(!res.ok) throw new Error();
+    msgEl.textContent = 'شكراً ليكم! وصلنا تأكيدكم 💕';
+    msgEl.classList.add('show');
+    form.reset();
+    form.dispatchEvent(new Event('reset-guests'));  // يرجّع عدّاد المرافقين لصفر
+  }catch(err){
+    msgEl.textContent = 'حصل خطأ في الإرسال، حاول تاني 🙏';
+    msgEl.classList.add('show');
+  }finally{
+    btn.disabled = false; btn.textContent = oldTxt;
+    setTimeout(()=>msgEl.classList.remove('show'), 6000);
+  }
 });
 
 /* ================= إضافة للتقويم ================= */
