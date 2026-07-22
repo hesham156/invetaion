@@ -1113,9 +1113,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(e.isIntersecting){
-          switchTo(venueMusic);
-        }else{
-          switchTo(music);
+          switchTo(venueMusic);   // بدّل للموسيقى التانية
+          obs.disconnect();       // وتفضّل شغّالة لحد آخر الموقع (مفيش رجوع)
         }
       });
     }, { threshold: 0.35 });   // يتفعّل لما يظهر ~ثلث السكشن
