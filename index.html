@@ -1146,6 +1146,18 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     started = true;
     vid.play().catch(()=>{});               // الفيديو صامت خلفية بصرية
     current.play().catch(()=>{});            // شغّل الموسيقى الحالية
+
+    /* فكّ قفل الأغنية التانية للآيفون:
+       iOS مش بيسمح بتشغيل صوت إلا من ضغطة مستخدم،
+       فبنشغّلها مكتومة لحظة ونوقفها — كده تبقى "مسموح لها"
+       وتشتغل عادي بعدين من الـ IntersectionObserver */
+    venueMusic.muted = true;
+    venueMusic.play().then(function(){
+      venueMusic.pause();
+      venueMusic.currentTime = 0;
+      venueMusic.muted = isMuted;
+    }).catch(function(){ venueMusic.muted = isMuted; });
+
     document.body.classList.remove('intro'); // اطلع من وضع البوابة
   });
 
