@@ -29,11 +29,13 @@ alter table rsvps enable row level security;
 
 ## 2) هات المفاتيح من Supabase
 
-من **Project Settings** (الترس تحت) → **API**:
+من **Project Settings** (الترس تحت) → **API Keys**:
 
-- **Project URL** → ده `SUPABASE_URL`  (شكله `https://xxxx.supabase.co`)
-- **service_role** key (تحت Project API keys — اضغط Reveal) → ده `SUPABASE_SERVICE_KEY`
-  - ⚠️ ده مفتاح سرّي جدًا — بيفضل على السيرفر بس، متحطّهوش في أي مكان عام.
+- **Project URL** → ده `SUPABASE_URL`
+  - بتاعك: `https://oxkrluazbpcaepjaebbi.supabase.co`
+- **Secret key** (يبدأ بـ `sb_secret_...` — اضغط Reveal/Copy) → ده `SUPABASE_SERVICE_KEY`
+  - ⚠️ ده مفتاح سرّي جدًا — بيفضل على السيرفر بس، متحطّهوش في أي كود أو مكان عام.
+  - ❌ **مش** المفتاح العام `sb_publishable_...` — ده مش هيشتغل لأن الجدول مقفول بـ RLS.
 
 ---
 
@@ -43,8 +45,8 @@ alter table rsvps enable row level security;
 
 | الاسم | القيمة |
 |---|---|
-| `SUPABASE_URL` | رابط المشروع من الخطوة 2 |
-| `SUPABASE_SERVICE_KEY` | مفتاح service_role من الخطوة 2 |
+| `SUPABASE_URL` | `https://oxkrluazbpcaepjaebbi.supabase.co` |
+| `SUPABASE_SERVICE_KEY` | مفتاح `sb_secret_...` من الخطوة 2 |
 | `ADMIN_PASSWORD` | أي باسورد إنت تختاره لدخول اللوحة |
 
 بعد ما تحفظهم، اعمل **Redeploy** للمشروع (أو ادفع أي commit جديد) عشان المتغيرات تشتغل.
